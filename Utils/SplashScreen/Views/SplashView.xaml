@@ -1,0 +1,118 @@
+﻿<Window x:Name="window" x:Class="SplashScreen.Views.SplashView"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:Behaviours="clr-namespace:SplashScreen.Behaviours" mc:Ignorable="d" 
+		d:DesignHeight="279" d:DesignWidth="450"
+		Behaviours:SplashBehaviour.Enabled="True"
+		WindowStartupLocation="CenterScreen" WindowStyle="None" ShowInTaskbar="False"
+		Topmost="True" AllowsTransparency="True" SizeToContent="Manual"
+		Height="300" Width="540" ResizeMode="NoResize" SnapsToDevicePixels="True"
+		Background="Transparent" OpacityMask="Black" Foreground="White" Visibility="Visible">
+	<Window.Resources>
+		<Storyboard x:Key="LogoEaseIn">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="image">
+				<EasingDoubleKeyFrame KeyTime="0" Value="-115">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<CircleEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<CircleEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image1">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<CubicEase EasingMode="EaseInOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="rectangle">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="image2">
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="-121">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<ExponentialEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>-->
+			<!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="image2">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="-145">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<ExponentialEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>-->
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="window">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.FontFamily)" Storyboard.TargetName="progressBar">
+				<DiscreteObjectKeyFrame KeyTime="0:0:1">
+					<DiscreteObjectKeyFrame.Value>
+						<FontFamily>Segoe UI</FontFamily>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+		</Storyboard>
+	</Window.Resources>
+	<Window.Triggers>
+		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+			<BeginStoryboard Storyboard="{StaticResource LogoEaseIn}"/>
+		</EventTrigger>
+	</Window.Triggers>
+
+	<Grid>
+		<!--<Rectangle x:Name="rectangle" Fill="#FF034888" HorizontalAlignment="Left" Height="300" Stroke="Black" VerticalAlignment="Top" Width="540">
+		</Rectangle>-->
+
+        <Image x:Name="rectangle" HorizontalAlignment="Left" Height="300" Width="540" Source="/SplashScreen;component/Img/bg.png" Opacity="1"/>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="125" Margin="115,11,0,0" VerticalAlignment="Top" Width="326" Source="/SplashScreen;component/Img/SensingGame.png" Opacity="1"/>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="63*"/>
+				<RowDefinition Height="95*"/>
+				<RowDefinition Height="77*"/>
+				<RowDefinition Height="65*"/>
+			</Grid.RowDefinitions>
+			<Canvas HorizontalAlignment="Left" Margin="10,10,0,14" Width="141" ClipToBounds="True" Height="65">
+				<Image x:Name="image"  Stretch="Uniform"  Width="120" Height="37" Source="/SplashScreen;component/Img/logo.png"  RenderTransformOrigin="0.5,0.5">
+					<Image.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform/>
+							<SkewTransform/>
+							<RotateTransform/>
+							<TranslateTransform/>
+						</TransformGroup>
+					</Image.RenderTransform>
+				</Image>
+			</Canvas>
+			
+		</Grid>
+		<Image x:Name="image2" HorizontalAlignment="Left" Height="188" Margin="429,257,-121,-145" VerticalAlignment="Top" Width="232" Source="/SplashScreen;component/Img/hand.png" RenderTransformOrigin="0.5,0.5">
+			<Image.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</Image.RenderTransform>
+		</Image>
+		<Label Content="{Binding Status}" HorizontalAlignment="Left" Height="36" Margin="10,259,0,0" VerticalAlignment="Top" Width="485" x:Name="message" Foreground="White" Background="#00E76E6E" FontSize="14.667"/>
+        <Label Content="V 6.0" Margin="500,259,0,0" VerticalAlignment="Center" Foreground="Blue"></Label>
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="2" Margin="0,298,0,0" VerticalAlignment="Top" Width="540" IsIndeterminate="True" Foreground="Blue"/>
+	</Grid>
+</Window>
