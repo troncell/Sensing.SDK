@@ -1,5 +1,3 @@
-# SensingGame.SDK
-SensingGame Cloud for Collecting Player Data.
+# Sensing.SDK
+Sensing SDK is for hosting sdks of SensingStoreCloud with .net world!
 
-#2018/1/23,add post device heartbeat.
-For upload offline game data.
