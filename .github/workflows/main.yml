@@ -28,6 +28,9 @@ jobs:
      - name: .NET Core Version
        run: dotnet --version
        
+     - name: Checkout
+       uses: actions/checkout@v2.3.4
+       
      - name:  pack
        run: |
             cd Sensing.Device.SDK
