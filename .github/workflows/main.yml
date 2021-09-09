@@ -27,3 +27,12 @@ jobs:
      
      - name: .NET Core Version
        run: dotnet --version
+       
+     - name:  pack
+       run: |
+            cd Sensing.Device.SDK
+            dotnet pack -o output
+            cd output
+            packagefile=`(ls -r *.nupkg | head -n 1)`
+            echo "$packagefile"
+            # dotnet nuget push Sensing.Device.SDK.1.0.1.nupkg --api-key oy2mje2pbqyw2tlujhparpwty5zkcltexmbegpbfz2srka --source https://api.nuget.org/v3/index.json
