@@ -38,4 +38,4 @@ jobs:
             cd output
             packagefile=`(ls -r *.nupkg | head -n 1)`
             echo "$packagefile"
-            dotnet nuget push $packagefile --api-key ${{NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+            dotnet nuget push $packagefile --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
