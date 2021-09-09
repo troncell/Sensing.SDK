@@ -1,0 +1,65 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+     - name: Setup .NET Core SDK
+       uses: actions/setup-dotnet@v1.8.1
+     
+     - name: .NET Core Version
+       run: dotnet --version
+       
+     - name: Checkout
+       uses: actions/checkout@v2.3.4
+       
+     - name:  Pack
+       id: pack
+       run: |
+            cd Sensing.Device.SDK
+            dotnet pack -o output
+            cd output
+            packagefile=`(ls -r *.nupkg | head -n 1)`
+            echo "$packagefile"
+            echo ::set-output name=packagefile::$packagefile
+            
+     - name: Push
+       run: | 
+            ls
+            dotnet nuget push Sensing.Device.SDK/output/${{steps.pack.outputs.packagefile}} --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+    
+     - name: The job has success
+       if: ${{ success() }}
+       run:  |
+             CURRENTDATE=`date +"%Y/%m/%d"`
+             curl '${{ secrets.DINGTALK_WEBHOOK}}' \
+             -H 'Content-Type: application/json' \
+             -d '{"msgtype": "actionCard","actionCard": {"text": "- SDK:Sensing.SDK\n- Version:'${{steps.pack.outputs.packagefile}}'\n- Date:'$CURRENTDATE'\n", "title": "Sensing.SDK Nuget新版本发布! ", "singleTitle" : "查看详情",  "singleURL": "https://www.nuget.org/packages/Sensing.Device.SDK/" }}'
+ 
+         
+
+      
+     - name: The job has failed
+       if: ${{ failure() }}
+       run:  |
+             curl '${{ secrets.DINGTALK_WEBHOOK}}' \
+             -H 'Content-Type: application/json' \
+             -d '{"msgtype": "text","text": {"content":"新版本发布失败 ${{ github.repository }} "}}'
