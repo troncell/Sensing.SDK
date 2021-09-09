@@ -45,3 +45,21 @@ jobs:
        run: | 
             ls
             dotnet nuget push Sensing.Device.SDK/output/${{steps.pack.outputs.packagefile}} --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+    
+     - name: The job has success
+       if: ${{ success() }}
+       run:  |
+             CURRENTDATE=`date +"%Y/%m/%d"`
+             curl '${{ secrets.DINGTALK_WEBHOOK}}' \
+             -H 'Content-Type: application/json' \
+             -d '{"msgtype": "actionCard","actionCard": {"text": "- SDK:Sensing.SDK\n- Version:'${{steps.pack.outputs.packagefile}}'\n- Date:'$CURRENTDATE'\n", "title": "Sensing.SDK Nuget新版本发布! ", "singleTitle" : "查看详情",  "singleURL": "https://www.nuget.org/packages/Sensing.Device.SDK/" }}'
+ 
+         
+
+      
+     - name: The job has failed
+       if: ${{ failure() }}
+       run:  |
+             curl '${{ secrets.DINGTALK_WEBHOOK}}' \
+             -H 'Content-Type: application/json' \
+             -d '{"msgtype": "text","text": {"content":"新版本发布失败 ${{ github.repository }} "}}'
