@@ -42,4 +42,4 @@ jobs:
             echo ::set-output name=packagefile::$packagefile
             
      - name: Push
-       run: dotnet nuget push ${{steps.pack.outputs.packagefile}} --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+       run: dotnet nuget push Sensing.Device.SDK/output/${{steps.pack.outputs.packagefile}} --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
