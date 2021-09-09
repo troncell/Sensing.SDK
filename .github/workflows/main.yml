@@ -38,4 +38,4 @@ jobs:
             cd output
             packagefile=`(ls -r *.nupkg | head -n 1)`
             echo "$packagefile"
-            # dotnet nuget push Sensing.Device.SDK.1.0.1.nupkg --api-key oy2mje2pbqyw2tlujhparpwty5zkcltexmbegpbfz2srka --source https://api.nuget.org/v3/index.json
+            dotnet nuget push $packagefile --api-key ${{NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
