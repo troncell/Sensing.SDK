@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using System.Collections.Specialized;
 using log4net;
 using System.Reflection;
-using System.Configuration;
 using Sensing.SDK.Contract;
+using System.Configuration;
 
 namespace Sensing.SDK
 {

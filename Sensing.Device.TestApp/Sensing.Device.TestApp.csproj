@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppPod.DataAccess\AppPod.DataAccess.csproj" />
+    <ProjectReference Include="..\Sensing.Ads\Sensing.Ads.csproj" />
     <ProjectReference Include="..\Sensing.Device.SDK\Sensing.Device.SDK.csproj" />
   </ItemGroup>
 

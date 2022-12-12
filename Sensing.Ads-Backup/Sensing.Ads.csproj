@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FF520CFE-83BE-4913-AD5B-FD5852114B2A}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>Sensing.Ads</RootNamespace>
+    <AssemblyName>Sensing.Ads</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomAds\CavnasBuilder.cs" />
+    <Compile Include="CustomAds\H5Builder.cs" />
+    <Compile Include="CustomAds\ProductBuilder.cs" />
+    <Compile Include="CustomAds\ImageBuilder.cs" />
+    <Compile Include="CustomAds\MediaBuilder.cs" />
+    <Compile Include="CustomAds\QrcodeBuilder.cs" />
+    <Compile Include="CustomAds\SwiperBuilder.cs" />
+    <Compile Include="CustomAds\TextBuilder.cs" />
+    <Compile Include="CustomAds\UnknownBuilder.cs" />
+    <Compile Include="CustomAds\ViewBuilder.cs" />
+    <Compile Include="EventHelper.cs" />
+    <Compile Include="JsonSubTypes\JsonSubtypes.cs" />
+    <Compile Include="JsonSubTypes\JsonSubtypesByDiscriminatorValueConverter.cs" />
+    <Compile Include="JsonSubTypes\JsonSubtypesByPropertyPresenceConverter.cs" />
+    <Compile Include="JsonSubTypes\JsonSubtypesConverter.cs" />
+    <Compile Include="JsonSubTypes\JsonSubtypesConverterBuilder.cs" />
+    <Compile Include="JsonSubTypes\JsonSubtypesWithPropertyConverterBuilder.cs" />
+    <Compile Include="JsonSubTypes\NullableDictionary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Qrcode\AbstractQRCode.cs" />
+    <Compile Include="Qrcode\ECCLevel.cs" />
+    <Compile Include="Qrcode\QRCodeData.cs" />
+    <Compile Include="Qrcode\QRCodeGenerator.cs" />
+    <Compile Include="Qrcode\XamlQRCode.cs" />
+    <Compile Include="Uitl\ByteSizeUtil.cs" />
+    <Compile Include="Uitl\ErrorCodeConstants.cs" />
+    <Compile Include="Uitl\FileUtil.cs" />
+    <Compile Include="Uitl\ImageLoaderUtil.cs" />
+    <Compile Include="ViewBanner\AdsItem\AdsFactory.cs" />
+    <Compile Include="ViewBanner\AdsItem\BaseAd.cs" />
+    <Compile Include="ViewBanner\AdsItem\CustomAd.cs" />
+    <Compile Include="ViewBanner\AdsItem\H5Ad.cs" />
+    <Compile Include="ViewBanner\AdsItem\ILink.cs" />
+    <Compile Include="ViewBanner\AdsItem\ImageAd.cs" />
+    <Compile Include="ViewBanner\AdsItem\OfflineAd.cs" />
+    <Compile Include="ViewBanner\AdsItem\NotSupportAd.cs" />
+    <Compile Include="ViewBanner\AdsItem\PdfAd.cs" />
+    <Compile Include="ViewBanner\AdsItem\VideoAd.cs" />
+    <Compile Include="ViewBanner\AdsItem\WindowAppAd.cs" />
+    <Compile Include="ViewBanner\Banner.cs" />
+    <Compile Include="ViewBanner\BannerState.cs" />
+    <Compile Include="ViewBanner\BannerViewer.cs" />
+    <Compile Include="ViewBanner\BannerViewerAdapter.cs" />
+    <Compile Include="ViewBanner\CustomViewBanner.cs" />
+    <Compile Include="ViewBanner\ExeBanner.cs" />
+    <Compile Include="ViewBanner\H5Banner.cs" />
+    <Compile Include="ViewBanner\ImageBanner.cs" />
+    <Compile Include="ViewBanner\EmptyBanner.cs" />
+    <Compile Include="ViewBanner\OfflineBanner.cs" />
+    <Compile Include="ViewBanner\NotSupportBanner.cs" />
+    <Compile Include="ViewBanner\PageTransformer.cs" />
+    <Compile Include="ViewBanner\Transitions\BaiYeChuangTransformer.cs" />
+    <Compile Include="ViewBanner\Transitions\FadeInTransformer.cs" />
+    <Compile Include="ViewBanner\Transitions\HeZhuangTransformer.cs" />
+    <Compile Include="ViewBanner\Transitions\NoneTransformer.cs" />
+    <Compile Include="ViewBanner\Transitions\PiLieTransformer.cs" />
+    <Compile Include="ViewBanner\Transitions\SlideDownTransformer.cs" />
+    <Compile Include="ViewBanner\Transitions\SlideLeftTransformer.cs" />
+    <Compile Include="ViewBanner\Transitions\SlideUpTransformer.cs" />
+    <Compile Include="ViewBanner\VideoBanner.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AppPod.DataAccess\AppPod.DataAccess.csproj">
+      <Project>{bf49e28b-4ba4-415d-95f1-61119f63e287}</Project>
+      <Name>AppPod.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sensing.Device.SDK\Sensing.Device.SDK.csproj">
+      <Project>{e9939d71-1bab-49dc-98a3-3aa58589d73e}</Project>
+      <Name>Sensing.Device.SDK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

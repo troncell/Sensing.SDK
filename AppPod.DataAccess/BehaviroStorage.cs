@@ -362,7 +362,6 @@ namespace AppPod.DataAccess
         [DllImport("kernel32")]
         public static extern void GlobalMemoryStatus(ref MEMORY_INFO meminfo);
 
-
     }
     //定义内存的信息结构    
     [StructLayout(LayoutKind.Sequential)]

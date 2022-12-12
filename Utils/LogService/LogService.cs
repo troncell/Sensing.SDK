@@ -27,7 +27,7 @@ namespace LogService
         }
         public IBizLogger GetLogger(string t)
         {
-            return new BizLogger(LogManager.GetLogger(t));
+            return new BizLogger(LogManager.GetLogger(t.GetType()));
         }
     }
 }

@@ -37,6 +37,8 @@ namespace AppPod.DataAccess
         string GetStoreType();
         string GetLocalImagePath(string path, string category);
 
+        List<TagSdkModel> GetTagInfos(SvcType type);
+
         List<TagSdkModel> GetTagInfos();
 
         List<AdsSdkModel> Ads { get; set; }
@@ -51,7 +53,15 @@ namespace AppPod.DataAccess
         List<PropertyViewModel> Properties { get; set; }
         List<BrandDto> Brands { get; set; }
 
-        List<TagSdkModel> Tags { get; set; }
+        //List<TagSdkModel> Tags { get; set; }
+
+
+        List<TagSdkModel> AdTags { get; set; }
+
+        List<TagSdkModel> ProductTags { get; set; }
+
+        List<TagSdkModel> DeviceTags { get; set; }
+
         List<AppInfo> Apps { get; set; }
         List<ActivityGameDto> ActivityGames { get; set; }
         List<AdAndAppTimelineScheduleViewModel> AdAndAppTimelineSchedules { get; set; }
@@ -87,7 +97,9 @@ namespace AppPod.DataAccess
         List<CouponViewModel> ReadCoupons();
         List<ProductSdkModel> ReadProducts();
         List<ProductCategorySDKModel> ReadCategorys();
-        List<TagSdkModel> ReadTags();
+        List<TagSdkModel> ReadAdTags();
+        List<TagSdkModel> ReadProductTags();
+        List<TagSdkModel> ReadDeviceTags();
         List<StaffSdkModel> ReadStaffs();
         /// <summary>
         /// 获取一级分类

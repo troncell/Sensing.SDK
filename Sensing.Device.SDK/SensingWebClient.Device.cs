@@ -183,6 +183,24 @@ namespace Sensing.SDK
             return null;
         }
 
+
+
+        public async Task<PagedResultDto<TagSdkModel>> GetDeviceTags(int skipCount = 0, int maxCount = 300)
+        {
+            var absolutePath = $"{DeviceCenterApiHost}{GetAdsTagsQuery}?{GetBasicNameValuesQueryString()}&{MaxResultCount}={maxCount}&{SkipCount}={skipCount}";
+            try
+            {
+                var webResult = await SendRequestAsync<string, AjaxResponse<PagedResultDto<TagSdkModel>>>(HttpMethod.Get, absolutePath, null);
+                return webResult.Result;
+            }
+            catch (Exception ex)
+            {
+                //logger.Error("PostBehaviorRecordsAsync", ex);
+                Console.WriteLine("GetTags:" + ex.InnerException);
+            }
+            return null;
+        }
+
         public async Task<CartQrcodeOutput> AddGoodsToCar(List<ShoppingCartItem> shoppingCart)
         {
             var absolutePath = $"https://sync.api.troncell.com/api/services/app/ThingSync/AddGoodsToCar?{GetBasicNameValuesQueryString()}";
