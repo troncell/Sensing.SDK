@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using AppPod.DataAccess;
+using Newtonsoft.Json;
 using Sensing.SDK;
 using Sensing.SDK.Contract;
 using Sensing.SDK.Contract.Faces;
 using SensingSite.ClientSDK.Common;
 using SensingStoreCloud.Activity;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,12 +26,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ZXing;
+using ZXing.Windows.Compatibility;
 using static Sensing.SDK.SensingWebClient;
 using Brushes = System.Windows.Media.Brushes;
 using Path = System.IO.Path;
 
 namespace Sensing.SDK.Test
 {
+
+    public class DeviceSetting
+    {
+        public string Name { get; set; }
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -37,9 +45,30 @@ namespace Sensing.SDK.Test
     {
         SensingWebClient _sensingWebClient;
         private Dictionary<string, EnumQRStatus> qrcodeTypes = new Dictionary<string, EnumQRStatus>();
+
+
+
+
+        private static string dbDirectory = "_data";
+        private static string dbFileName = "AppPodData.db";
+        private static SQLiteConnection sqliteConnection;
+       
+      
+
         public MainWindow()
         {
             InitializeComponent();
+
+
+            var dbDirectoryFullPath = Path.Combine(Environment.CurrentDirectory, dbDirectory);
+            var dbFullPath = Path.Combine(dbDirectoryFullPath, dbFileName);
+            if (!Directory.Exists(dbDirectoryFullPath))
+            {
+                Directory.CreateDirectory(dbDirectory);
+            }
+            sqliteConnection = new SQLiteConnection(dbFullPath);
+            sqliteConnection.CreateTable<DeviceSetting>();
+
             this.ClientNoTB.Text = MacIPHelper.GetClientMac();
 
             qrcodeTypes.Add("游戏之前", EnumQRStatus.BeforeGame);

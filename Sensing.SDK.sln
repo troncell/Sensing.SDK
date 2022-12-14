@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensing.Device.TestApp", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sensing.Ads", "Sensing.Ads\Sensing.Ads.csproj", "{68735E09-5C1F-4632-984F-E4401BD87315}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensingBase", "Utils\SensingBase\SensingBase.csproj", "{5988FF21-0AED-4A71-9730-070B71116291}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,12 +134,29 @@ Global
 		{68735E09-5C1F-4632-984F-E4401BD87315}.Release|x64.Build.0 = Release|Any CPU
 		{68735E09-5C1F-4632-984F-E4401BD87315}.Release|x86.ActiveCfg = Release|Any CPU
 		{68735E09-5C1F-4632-984F-E4401BD87315}.Release|x86.Build.0 = Release|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Debug|ARM.Build.0 = Debug|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Debug|x64.Build.0 = Debug|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Debug|x86.Build.0 = Debug|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Release|ARM.Build.0 = Release|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Release|x64.ActiveCfg = Release|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Release|x64.Build.0 = Release|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Release|x86.ActiveCfg = Release|Any CPU
+		{5988FF21-0AED-4A71-9730-070B71116291}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{62176A09-A9F2-4589-9F3F-0A30AC263740} = {9956EBCB-3413-4A62-8B40-2D47E3D342FA}
+		{5988FF21-0AED-4A71-9730-070B71116291} = {9956EBCB-3413-4A62-8B40-2D47E3D342FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B7D1969-1F4C-4107-A101-9F83666C05E0}

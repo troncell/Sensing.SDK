@@ -47,6 +47,5 @@ namespace SensingAds.CustomAds
             }
             objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { hide });
         }
-
     }
 }

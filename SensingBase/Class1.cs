@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Stardard
+namespace SensingBase
 {
     public class Class1
     {
