@@ -1,9 +1,12 @@
 # Sensing.SDK
 
-Sensing SDK is for hosting sdks of SensingStore Cloud with .net world!
+Sensing SDK is for hosting sdks of SensingStore Cloud & SensingHub private deployment with .net world!
 
 
 Backlogs
+
+### 1.2.0
+1. add SensingHub Sdk
 
 ### 1.1.0
 

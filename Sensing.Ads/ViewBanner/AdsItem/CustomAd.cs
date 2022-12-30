@@ -39,7 +39,6 @@ namespace SensingAds.ViewBanner.AdsItem
             return banner;
         }
 
-
         public static CustomAd  Parse(string json, int id, string name, int timeSpan)
         {
             try
