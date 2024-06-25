@@ -1,4 +1,4 @@
-﻿using Sensing.SDK.Contract;
+﻿using Sensing.SDK;
 using System;
 using System.Collections.Generic;
 using System.Text;
