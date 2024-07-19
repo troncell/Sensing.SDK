@@ -37,7 +37,6 @@ namespace SensingAds.CustomAds
         public override IEnumerable<string> ExtractLinks()
         {
             yield return backgroundImage;
-
         }
     }
 }

@@ -15,16 +15,27 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="sqlite" Version="3.13.0" />
     <PackageReference Include="sqlite-net" Version="1.6.292" />
+    <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="7.0.0" />
     <PackageReference Include="System.Interactive" Version="6.0.1" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="TinyPinyin.Net" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AppPod\src\SensingDownloader\SensingDownloader.csproj" />
     <ProjectReference Include="..\Sensing.Device.SDK\Sensing.Device.SDK.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="LogService">
+      <HintPath>..\Dlls\LogService.dll</HintPath>
+    </Reference>
+    <Reference Include="SensingBase">
+      <HintPath>..\Dlls\SensingBase.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

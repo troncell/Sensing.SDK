@@ -29,4 +29,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="SensngGame.ClientSDK">
+      <HintPath>..\..\productgrid\ExternalDLLs\net461\SensngGame.ClientSDK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
