@@ -711,5 +711,15 @@ namespace Sensing.SDK.Test
                 AdsMessage.Text = "failed" + Environment.NewLine;
             }
         }
+
+        private void ThingType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ThingType_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

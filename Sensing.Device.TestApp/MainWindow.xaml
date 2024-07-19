@@ -45,7 +45,7 @@
                     <TextBlock x:Name="BMessage" TextWrapping="Wrap" Background="White" HorizontalAlignment="Left" Margin="29,265,0,0" Text="" VerticalAlignment="Top" Height="157" Width="732"/>
                     <Label x:Name="label_Copy5" Content="Api回掉信息" HorizontalAlignment="Left" Margin="24,234,0,0" VerticalAlignment="Top" Width="207"/>
                     <Label x:Name="label_Copy7" Content="Thing类型" HorizontalAlignment="Left" Margin="420,36,0,0" VerticalAlignment="Top" Width="94"/>
-                    <ComboBox x:Name="ThingType" HorizontalAlignment="Left" Margin="496,38,0,0" VerticalAlignment="Top" Width="152">
+                    <ComboBox x:Name="ThingType" HorizontalAlignment="Left" Margin="496,38,0,0" VerticalAlignment="Top" Width="152" SelectionChanged="ThingType_SelectionChanged_1">
                         <ComboBoxItem IsSelected="True" Content="Ads"/>
                         <ComboBoxItem Content="Product"/>
                         <ComboBoxItem Content="Sku"/>
@@ -100,7 +100,7 @@
                         <ComboBoxItem IsSelected="True">Male</ComboBoxItem>
                         <ComboBoxItem>Female</ComboBoxItem>
                     </ComboBox>
-                    <Button Margin="583,29,571,738" x:Name="GoodsByFacesBtn" FontSize="20" Content="GoodsByFaces" Click="GoodsByFacesBtn_Click"/>
+                    <Button Margin="584,29,571,738" x:Name="GoodsByFacesBtn" FontSize="20" Content="GoodsByFaces" Click="GoodsByFacesBtn_Click"/>
                     <Button x:Name="MemberFaceBtn" FontSize="20" Content="IsFaceMember" Click="MemberFaceBtn_Click" Canvas.Left="876" Canvas.Top="29" />
                     <Label Height="30" Canvas.Left="72" Canvas.Top="110">Gender:</Label>
                     <TextBox Width="150" x:Name="GenderTBox" Canvas.Left="127" Canvas.Top="116">Male</TextBox>

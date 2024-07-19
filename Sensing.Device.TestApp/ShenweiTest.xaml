@@ -1,0 +1,182 @@
+﻿<Window x:Class="Sensing.Device.TestApp.ShenweiTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Sensing.Device.TestApp"
+        mc:Ignorable="d"
+        Title="ShenweiTest" Height="450" Width="800">
+    <StackPanel>
+        <StackPanel HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label>Pad Id:</Label>
+                <TextBox x:Name="DeviceIdTB" Width="40" VerticalContentAlignment="Center" Text="85671"></TextBox>
+                <Label>Pad SubKey:</Label>
+                <TextBox x:Name="SubKeyTB" Width="100" VerticalContentAlignment="Center" Text="6e927be645c54eed9a3bad607b741587"></TextBox>
+
+                <Label>Pad1 Id:</Label>
+                <TextBox x:Name="DeviceIdTB1" Width="40" VerticalContentAlignment="Center" Text="85672"></TextBox>
+                <Label>Pad1 SubKey:</Label>
+                <TextBox x:Name="SubKeyTB1" Width="100" VerticalContentAlignment="Center" Text="b1c355c71cd44fdb9e5a78c719d18c9c"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Device1 Id:</Label>
+                <TextBox x:Name="IDevice1" Width="40" VerticalContentAlignment="Center" Text="85773"></TextBox>
+                <Label>Device1 SubKey:</Label>
+                <TextBox x:Name="SDevice1" Width="100" VerticalContentAlignment="Center" Text="67bc6473d7324a92b69af6e35ef05624"></TextBox>
+
+                <Label>Device2 Id:</Label>
+                <TextBox x:Name="IDevice2" Width="40" VerticalContentAlignment="Center" Text="85774"></TextBox>
+                <Label>Device2 SubKey:</Label>
+                <TextBox x:Name="SDevice2" Width="100" VerticalContentAlignment="Center" Text="05585d49b3b4463aaf8ff70274a6af45"></TextBox>
+
+
+                <Label>Device3 Id:</Label>
+                <TextBox x:Name="IDevice3" Width="40" VerticalContentAlignment="Center" Text="85675"></TextBox>
+                <Label>Device3 SubKey:</Label>
+                <TextBox x:Name="SDevice3" Width="100" VerticalContentAlignment="Center" Text="3554c38e81e1420db855e4ecf99a6c96"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        <Grid>
+            <Label x:Name="label_Copy4" Content="Api测试功能一览：" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155"/>
+        </Grid>
+        <TabControl x:Name="tabControl" Width="1356" Height="850" IsEnabled="True" HorizontalAlignment="Left">
+            <TabItem Header="pad1" Height="30">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,103">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="143*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Grid.ColumnSpan="2">锁定区域id:</Label>
+                    <TextBox x:Name="LockAreaID" VerticalContentAlignment="Center" Margin="14,2,1205,686" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="97,0,0,0" Grid.Column="1">解锁区域id:</Label>
+                    <TextBox x:Name="ReleaseAreaID" VerticalContentAlignment="Center" Margin="174,0,1045,688" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="247,0,0,0" Grid.Column="1">锁定设备id:</Label>
+                    <TextBox x:Name="LockDeviceID" VerticalContentAlignment="Center" Margin="329,2,890,686" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="409,0,0,0" Grid.Column="1">解锁设备id:</Label>
+                    <TextBox x:Name="ReleaseDeviceID" VerticalContentAlignment="Center" Margin="486,4,733,684" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-4,31,0,0" Grid.ColumnSpan="2">控制区域的id:</Label>
+                    <TextBox x:Name="ControlAreaID" VerticalContentAlignment="Center" Margin="22,33,1197,655" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="115,28,0,0" Grid.Column="1">控制id:</Label>
+                    <TextBox x:Name="AControlID" VerticalContentAlignment="Center" Margin="177,32,1042,656" Grid.Column="1"/>
+
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="245,30,0,0" Grid.Column="1">控制设备的id:</Label>
+                    <TextBox x:Name="ControlDeviceID" VerticalContentAlignment="Center" Margin="329,32,890,656" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="424,27,0,0" Grid.Column="1">控制id:</Label>
+                    <TextBox x:Name="DControlID" VerticalContentAlignment="Center" Margin="486,34,733,654" Grid.Column="1"/>
+
+                    <Button x:Name="connectButton" Content="连接signalr" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Click="connectButton_Click" Grid.ColumnSpan="2"/>
+                    <Button x:Name="sendButton" Content="登陆" HorizontalAlignment="Left" Margin="25,60,0,0" VerticalAlignment="Top" Click="loginButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="lockButton" Content="锁区域" HorizontalAlignment="Left" Margin="58,60,0,0" VerticalAlignment="Top" Click="lockButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="releaseButton" Content="解锁区域" HorizontalAlignment="Left" Margin="97,60,0,0" VerticalAlignment="Top" Click="releaseButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="lockDButton" Content="锁设备" HorizontalAlignment="Left" Margin="177,61,0,0" VerticalAlignment="Top" Click="lockDButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="releaseDButton" Content="解锁设备" HorizontalAlignment="Left" Margin="231,61,0,0" VerticalAlignment="Top" Click="releaseDButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="controlAreaButton" Content="区域控制" HorizontalAlignment="Left" Margin="299,60,0,0" VerticalAlignment="Top" Click="areaControlButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="controlDeviceButton" Content="设备控制" HorizontalAlignment="Left" Margin="363,60,0,0" VerticalAlignment="Top" Click="deviceControlButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="getDeviceButton" Content="获取设备列表" HorizontalAlignment="Left" Margin="444,61,0,0" VerticalAlignment="Top" Click="getDeviceButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+
+
+                    <ListBox x:Name="messagesList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,80,759,381" Grid.ColumnSpan="2"/>
+                    <ListBox x:Name="receivedList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="289,80,0,381" Grid.Column="1" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="pad2" Height="30" HorizontalAlignment="Right" Margin="0,-1,-2,1" Width="45">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,103">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="143*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Grid.ColumnSpan="2">锁定区域id:</Label>
+                    <TextBox x:Name="LockAreaID1" VerticalContentAlignment="Center" Margin="14,2,1205,686" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="97,0,0,0" Grid.Column="1">解锁区域id:</Label>
+                    <TextBox x:Name="ReleaseAreaID1" VerticalContentAlignment="Center" Margin="174,0,1045,688" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="247,0,0,0" Grid.Column="1">锁定设备id:</Label>
+                    <TextBox x:Name="LockDeviceID1" VerticalContentAlignment="Center" Margin="329,2,890,686" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="409,0,0,0" Grid.Column="1">解锁设备id:</Label>
+                    <TextBox x:Name="ReleaseDeviceID1" VerticalContentAlignment="Center" Margin="486,4,733,684" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-8,31,0,0" Grid.ColumnSpan="2">控制区域的id:</Label>
+                    <TextBox x:Name="ControlAreaID1" VerticalContentAlignment="Center" Margin="18,33,1201,655" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="111,28,0,0" Grid.Column="1">控制id:</Label>
+                    <TextBox x:Name="AControlID1" VerticalContentAlignment="Center" Margin="173,32,1046,656" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="256,31,0,0" Grid.Column="1">控制设备的id:</Label>
+                    <TextBox x:Name="ControlDeviceID1" VerticalContentAlignment="Center" Margin="340,33,879,655" Grid.Column="1"/>
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="429,31,0,0" Grid.Column="1">控制id:</Label>
+                    <TextBox x:Name="DControlID1" VerticalContentAlignment="Center" Margin="492,33,727,655" Grid.Column="1"/>
+                    <Button x:Name="connectButton1" Content="连接signalr" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Click="connectButton_Click1" Grid.ColumnSpan="2"/>
+                    <Button x:Name="sendButton1" Content="登陆" HorizontalAlignment="Left" Margin="25,60,0,0" VerticalAlignment="Top" Click="loginButton_Click1" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="lockButton1" Content="锁区域" HorizontalAlignment="Left" Margin="58,60,0,0" VerticalAlignment="Top" Click="lockButton_Click1" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="releaseButton1" Content="解锁区域" HorizontalAlignment="Left" Margin="97,60,0,0" VerticalAlignment="Top" Click="releaseButton_Click1" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="lockDButton1" Content="锁设备" HorizontalAlignment="Left" Margin="166,61,0,0" VerticalAlignment="Top" Click="lockDButton_Click1" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="releaseDButton1" Content="解锁设备" HorizontalAlignment="Left" Margin="211,61,0,0" VerticalAlignment="Top" Click="releaseDButton_Click1" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="controlAreaButton1" Content="区域控制" HorizontalAlignment="Left" Margin="268,61,0,0" VerticalAlignment="Top" Click="areaControlButton_Click1" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="controlDeviceButton1" Content="设备控制" HorizontalAlignment="Left" Margin="340,61,0,0" VerticalAlignment="Top" Click="deviceControlButton_Click1" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <ListBox x:Name="messagesList1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,80,759,381" Grid.ColumnSpan="2"/>
+                    <ListBox x:Name="receivedList1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="289,80,0,381" Grid.Column="1" />
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="device1" Height="30">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,103">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="143*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button x:Name="connectButton2" Content="连接signalr" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Click="connectButton_Click2" Grid.ColumnSpan="2"/>
+                    <Button x:Name="sendButton2" Content="登陆" HorizontalAlignment="Left" Margin="25,37,0,0" VerticalAlignment="Top" Click="loginButton_Click2" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <ListBox x:Name="messagesList2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,61,759,381" Grid.ColumnSpan="2"/>
+                    <ListBox x:Name="receivedList2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="289,61,0,381" Grid.Column="1" />
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="device2" Height="30">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,103">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="143*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button x:Name="connectButton3" Content="连接signalr" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Click="connectButton_Click3" Grid.ColumnSpan="2"/>
+                    <Button x:Name="sendButton3" Content="登陆" HorizontalAlignment="Left" Margin="25,37,0,0" VerticalAlignment="Top" Click="loginButton_Click3" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <ListBox x:Name="messagesList3" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,61,759,381" Grid.ColumnSpan="2"/>
+                    <ListBox x:Name="receivedList3" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="289,61,0,381" Grid.Column="1" />
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="device3" Height="30">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,103">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="143*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button x:Name="connectButton4" Content="连接signalr" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Click="connectButton_Click4" Grid.ColumnSpan="2"/>
+                    <Button x:Name="sendButton4" Content="登陆" HorizontalAlignment="Left" Margin="25,37,0,0" VerticalAlignment="Top" Click="loginButton_Click4" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <ListBox x:Name="messagesList4" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,61,759,381" Grid.ColumnSpan="2"/>
+                    <ListBox x:Name="receivedList4" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="289,61,0,381" Grid.Column="1" />
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </StackPanel>
+</Window>
