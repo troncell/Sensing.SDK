@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Sensing.Device.SDK.SensingHub.Constants;
 
 namespace SensingHub.Sdk
 {
@@ -21,6 +22,7 @@ namespace SensingHub.Sdk
     /// </summary>
      public partial class SensingHubClient
     {
+        
         /// <summary>
         /// Receiving the remote cast events from server
         /// </summary>
@@ -31,8 +33,10 @@ namespace SensingHub.Sdk
         /// </summary>
         public event EventHandler<StopRemoteCastEventArgs> StopRemoteCastEvent;
 
-        //current devices
-        private static HubConnection castHubConnection;
+        
+        private Microsoft.AspNetCore.SignalR.Client.HubConnection _connection;
+        private static readonly string NotifyMethod = "NotifyDataChanged";
+        private static readonly string Received = "received";
 
         /// <summary>
         /// Connect to baseUrl for HubConnection.
@@ -44,22 +48,22 @@ namespace SensingHub.Sdk
 
             if (string.IsNullOrEmpty(baseUrl)) return; 
             _baseUrl = baseUrl;
-            if (castHubConnection == null)
+            if (_connection == null)
             {
-                castHubConnection = new HubConnectionBuilder()
+                _connection = new HubConnectionBuilder()
                         .WithUrl($"{_baseUrl}/remotecast")
                         .Build();
-                castHubConnection.On<string, string>("OnRemoteCast", OnRemoteCast);
-                castHubConnection.On<string>("OnStopCast", OnStopCast);
-                castHubConnection.Closed += HubConnection_Closed;
-                await ConnectWithRetryAsync(castHubConnection, s_token);
+                _connection.On<string, string>("OnRemoteCast", OnRemoteCast);
+                _connection.On<string>("OnStopCast", OnStopCast);
+                _connection.Closed += HubConnection_Closed;
+                await ConnectWithRetryAsync(_connection, s_token);
             }
         }
 
         private async Task HubConnection_Closed(Exception arg)
         {
             await Task.Delay(new Random().Next(0, 5) * 1000);
-            await ConnectWithRetryAsync(castHubConnection, s_token);
+            await ConnectWithRetryAsync(_connection, s_token);
         }
 
         /// <summary>
@@ -69,11 +73,11 @@ namespace SensingHub.Sdk
         /// <param name="deviceId">target device</param>
         public void RemoteCast(string fileName, string deviceId)
         {
-            if(castHubConnection.State == HubConnectionState.Connected)
+            if(_connection.State == HubConnectionState.Connected)
             {
                 try
                 {
-                    castHubConnection.SendAsync("RemoteCast", fileName, deviceId);
+                    _connection.SendAsync("RemoteCast", fileName, deviceId);
                 }
                 catch(Exception ex)
                 {
@@ -89,9 +93,9 @@ namespace SensingHub.Sdk
         /// <returns></returns>
         public async Task<bool> Login(string deviceId)
         {
-            if (castHubConnection.State == HubConnectionState.Connected)
+            if (_connection.State == HubConnectionState.Connected)
             {
-               await castHubConnection.SendAsync("Login", deviceId);
+               await _connection.SendAsync("Login", deviceId);
                 return true;
             }
             return false;
@@ -103,9 +107,9 @@ namespace SensingHub.Sdk
         /// <param name="deviceId">target device</param>
         public void StopCast(string deviceId)
         {
-            if (castHubConnection.State == HubConnectionState.Connected)
+            if (_connection.State == HubConnectionState.Connected)
             {
-                castHubConnection.SendAsync("StopCast", deviceId);
+                _connection.SendAsync("StopCast", deviceId);
             }
         }
 
@@ -121,6 +125,236 @@ namespace SensingHub.Sdk
             Debug.WriteLine($"Stop Cast {deviceId}");
             StopRemoteCastEvent?.Invoke(this, new StopRemoteCastEventArgs(deviceId));
             return Task.CompletedTask;
+        }
+        
+        public async Task PadConnect(string baseUrl)
+        {
+            if (baseUrl == null) return;
+            _baseUrl = baseUrl;
+            if (_connection == null)
+            {
+                _connection = new HubConnectionBuilder()
+                    .WithUrl($"{_baseUrl}/LocalSensingDevice")
+                    .Build();
+
+                _connection.Closed += async (error) =>
+                {
+                    await Task.Delay(new Random().Next(0, 5) * 1000);
+                    await _connection.StartAsync();
+                }; 
+            }
+            try
+            {
+                await _connection.StartAsync();
+                Console.WriteLine("Connection started");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to start connection: {ex.Message}");
+            }
+        }
+
+        public async Task DeviceConnect(string baseUrl)
+        {
+            if (baseUrl == null) return;
+            _baseUrl = baseUrl;
+            if (_connection == null)
+            {
+                _connection = new HubConnectionBuilder()
+                    .WithUrl($"{_baseUrl}/LocalSensingDevice")
+                    .Build();
+                _connection.Closed += async (error) =>
+                {
+                    await Task.Delay(new Random().Next(0, 5) * 1000);
+                    await _connection.StartAsync();
+                };
+            }
+            try
+            {
+                await _connection.StartAsync();
+                Console.WriteLine("Connection started");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to start connection: {ex.Message}");
+            }
+        }
+        
+        public async Task<bool> DeviceLogin(string subKey)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                // await _connection.SendAsync("Login", deviceId);
+                var deviceLoginInput = new 
+                {
+                    CommonText = new 
+                    {
+                        SubKey = subKey
+                    },
+                    Type = SignalrCommonType.Auth,
+                    SubKey = subKey 
+
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    deviceLoginInput, SignalrFromEnum.HallAreaDevice);
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> PadLogin(string subKey)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                var input = new 
+                {
+                    CommonText = new 
+                    {
+                        SubKey = subKey
+                    },
+                    Type = SignalrCommonType.Auth,
+                    SubKey = subKey 
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    input, SignalrFromEnum.HallAreaPad);
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> LockArea(string subKey, long areaId)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                var input = new 
+                {
+                    CommonText = new 
+                    {
+                        HallAreaId = areaId,
+                    },
+                    Type = SignalrCommonType.AreaLock,
+                    SubKey = subKey
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    input, SignalrFromEnum.HallAreaPad);
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> ReleaseAreaLock(string subKey,long areaId)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                var input = new 
+                {
+                    CommonText = new 
+                    {
+                        HallAreaId = areaId,
+                    },
+                    Type = SignalrCommonType.AreaRelease,
+                    SubKey = subKey
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    input, SignalrFromEnum.HallAreaPad);
+                return true;
+            }
+            return false; 
+        }
+        
+        public async Task<bool> DeviceLock(string subKey)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                var input = new 
+                {
+                    CommonText = new 
+                    {
+                        SubKey = subKey,
+                    },
+                    Type = SignalrCommonType.DeviceLock,
+                    SubKey = subKey
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    input, SignalrFromEnum.HallAreaPad);
+                return true;
+            }
+            return false; 
+        }
+        
+        public async Task<bool> ReleaseDeviceLock(string subKey)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                var input = new 
+                {
+                    CommonText = new 
+                    {
+                        SubKey = subKey,
+                    },
+                    Type = SignalrCommonType.DeviceRelease,
+                    SubKey = subKey
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    input, SignalrFromEnum.HallAreaPad);
+                return true;
+            }
+            return false; 
+        }
+        
+        public async Task<bool> ControlArea(string subKey, long areaId,long controlId)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                var input = new 
+                {
+                    CommonText = new 
+                    {
+                        HallAreaId = areaId,
+                        ControlId = controlId,
+                    },
+                    Type = SignalrCommonType.AreaControl,
+                    SubKey = subKey
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    input, SignalrFromEnum.HallAreaPad);
+                return true;
+            }
+            return false; 
+        }
+        
+        public async Task<bool> ControlDevice(string subKey,long controlId)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                var input = new 
+                {
+                    CommonText = new 
+                    {
+                        SubKey = subKey,
+                        ControlId = controlId,
+                    },
+                    Type = SignalrCommonType.DeviceControl,
+                    SubKey = subKey
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    input, SignalrFromEnum.HallAreaPad);
+                return true;
+            }
+            return false; 
+        }
+
+        
+        public  void OnMessageReceived<T>(Action<T> handler)
+        {
+            if (_connection == null)
+            {
+                throw new InvalidOperationException("Connection is not initialized.");
+            }
+
+            _connection.On(Received, handler);
         }
     }
 }

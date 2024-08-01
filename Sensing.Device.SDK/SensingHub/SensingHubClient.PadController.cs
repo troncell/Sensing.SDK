@@ -65,7 +65,7 @@ namespace SensingHub.Sdk
         private async Task PadControlHubConnection_Closed(Exception arg)
         {
             await Task.Delay(new Random().Next(0, 5) * 1000);
-            await ConnectWithRetryAsync(castHubConnection, s_token);
+            await ConnectWithRetryAsync(_connection, s_token);
         }
 
         private void OnCommandReceived(JsonElement data)
