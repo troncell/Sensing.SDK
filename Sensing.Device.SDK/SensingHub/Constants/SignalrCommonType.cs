@@ -14,5 +14,6 @@
         public static string DeviceControl = "DeviceControl";
         public static string AreaControl = "AreaControl";
         public static string Disconnected = "Disconnected";
+        public static string DeviceControlBatch = "DeviceControlBatch";
     }
 }

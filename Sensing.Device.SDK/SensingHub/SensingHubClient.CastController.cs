@@ -345,7 +345,27 @@ namespace SensingHub.Sdk
             }
             return false; 
         }
-
+        
+        public async Task<bool> BatchControlDevice(List<string> subKeyList,string fromSubKey,string data)
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                var input = new 
+                {
+                    CommonText = new 
+                    {
+                        SubKeys = subKeyList,
+                        Data = data,
+                    },
+                    Type = SignalrCommonType.DeviceControlBatch,
+                    SubKey = fromSubKey
+                };
+                await _connection.InvokeAsync(NotifyMethod,
+                    input, SignalrFromEnum.HallAreaDevice);
+                return true;
+            }
+            return false; 
+        }
         
         public  void OnMessageReceived<T>(Action<T> handler)
         {

@@ -9,30 +9,20 @@
     <StackPanel>
         <StackPanel HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <Label>Pad Id:</Label>
-                <TextBox x:Name="DeviceIdTB" Width="40" VerticalContentAlignment="Center" Text="85671"></TextBox>
                 <Label>Pad SubKey:</Label>
-                <TextBox x:Name="SubKeyTB" Width="100" VerticalContentAlignment="Center" Text="6e927be645c54eed9a3bad607b741587"></TextBox>
+                <TextBox x:Name="SubKeyTB" Width="100" VerticalContentAlignment="Center" Text="9ce7ca037d1544229a7faa8c7124c7be"></TextBox>
 
-                <Label>Pad1 Id:</Label>
-                <TextBox x:Name="DeviceIdTB1" Width="40" VerticalContentAlignment="Center" Text="85672"></TextBox>
                 <Label>Pad1 SubKey:</Label>
-                <TextBox x:Name="SubKeyTB1" Width="100" VerticalContentAlignment="Center" Text="b1c355c71cd44fdb9e5a78c719d18c9c"></TextBox>
+                <TextBox x:Name="SubKeyTB1" Width="100" VerticalContentAlignment="Center" Text="642f521ab0824ad5a834d90373b13c78"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label>Device1 Id:</Label>
-                <TextBox x:Name="IDevice1" Width="40" VerticalContentAlignment="Center" Text="85773"></TextBox>
                 <Label>Device1 SubKey:</Label>
-                <TextBox x:Name="SDevice1" Width="100" VerticalContentAlignment="Center" Text="67bc6473d7324a92b69af6e35ef05624"></TextBox>
-
-                <Label>Device2 Id:</Label>
-                <TextBox x:Name="IDevice2" Width="40" VerticalContentAlignment="Center" Text="85774"></TextBox>
+                <TextBox x:Name="SDevice1" Width="100" VerticalContentAlignment="Center" Text="72c196cbf44d4de69ebc4e8b9138f944"></TextBox>
+                
                 <Label>Device2 SubKey:</Label>
-                <TextBox x:Name="SDevice2" Width="100" VerticalContentAlignment="Center" Text="05585d49b3b4463aaf8ff70274a6af45"></TextBox>
+                <TextBox x:Name="SDevice2" Width="100" VerticalContentAlignment="Center" Text="76a6969baf3740e69f6aef8b4a286df2"></TextBox>
 
-
-                <Label>Device3 Id:</Label>
-                <TextBox x:Name="IDevice3" Width="40" VerticalContentAlignment="Center" Text="85675"></TextBox>
+                
                 <Label>Device3 SubKey:</Label>
                 <TextBox x:Name="SDevice3" Width="100" VerticalContentAlignment="Center" Text="3554c38e81e1420db855e4ecf99a6c96"></TextBox>
             </StackPanel>
@@ -81,6 +71,7 @@
                     <Button x:Name="controlAreaButton" Content="区域控制" HorizontalAlignment="Left" Margin="299,60,0,0" VerticalAlignment="Top" Click="areaControlButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
                     <Button x:Name="controlDeviceButton" Content="设备控制" HorizontalAlignment="Left" Margin="363,60,0,0" VerticalAlignment="Top" Click="deviceControlButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
                     <Button x:Name="getDeviceButton" Content="获取设备列表" HorizontalAlignment="Left" Margin="444,61,0,0" VerticalAlignment="Top" Click="getDeviceButton_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
+                    <Button x:Name="test" Content="test" HorizontalAlignment="Left" Margin="544,61,0,0" VerticalAlignment="Top" Click="getDeviceTest_Click" RenderTransformOrigin="0.5,1.769" Grid.Column="1"/>
 
 
                     <ListBox x:Name="messagesList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,80,759,381" Grid.ColumnSpan="2"/>

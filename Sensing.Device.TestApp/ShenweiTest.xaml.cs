@@ -73,7 +73,7 @@ public partial class ShenweiTest : Window
     
     private async void connectButton_Click2(object sender, RoutedEventArgs e)
     {
-        await _client2.DeviceConnect("http://localhost:8080");
+        await _client2.DeviceConnect("http://120.26.218.8:8081");
         _client2.OnMessageReceived<object>( message =>
         {
             this.Dispatcher.Invoke(() =>
@@ -250,7 +250,7 @@ public partial class ShenweiTest : Window
     private async void deviceControlButton_Click(object sender, RoutedEventArgs e)
     {
  
-        await _client.ControlDevice(SubKeyTB.Text,long.Parse(DControlID.Text));
+        await _client.ControlDevice(ControlDeviceID.Text,long.Parse(DControlID.Text));
 
     }
 
@@ -264,7 +264,7 @@ public partial class ShenweiTest : Window
     private async void deviceControlButton_Click1(object sender, RoutedEventArgs e)
     {
 
-        await _client1.ControlDevice(SubKeyTB1.Text,long.Parse(DControlID1.Text));
+        await _client1.ControlDevice(ControlDeviceID1.Text,long.Parse(DControlID1.Text));
 
     }
 
@@ -297,5 +297,10 @@ public partial class ShenweiTest : Window
             // input, 1);
     }
 
-    
+
+    private async void getDeviceTest_Click(object sender, RoutedEventArgs e)
+    {
+        var deviceControl = await _client.GetDeviceControl(null, "http://120.26.218.8:8081");
+        var deviceControlDeviceModelDtos = deviceControl;
+    }
 }

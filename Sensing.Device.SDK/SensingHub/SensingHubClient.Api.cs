@@ -21,6 +21,8 @@ using Sensing.SDK;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net.Http.Headers;
+using Sensing.Device.SDK.Dto;
+using Sensing.Device.SDK.Dto.DeviceControl;
 
 namespace SensingHub.Sdk
 {
@@ -30,6 +32,7 @@ namespace SensingHub.Sdk
     public partial class SensingHubClient
     {
         private const string GetDeviceBySubKeyQuery = "api/services/app/SensingDevice/GetDeviceBySubKey";
+        private const string GetDeviceControlUrl = "/api/services/app/HallArea/GetDeviceControlInfo";
 
         private const string CheckSoftwareVersion = "/software/checkupdate";
         private string _subKey = string.Empty;
@@ -53,6 +56,31 @@ namespace SensingHub.Sdk
                 Console.WriteLine("GetDeviceResourcesAsync:" + ex.InnerException);
             }
             return null;
+        }
+
+        public async Task<IList<DeviceControlDto>> GetDeviceControl(long? deviceId, string url)
+        {
+            var requestUrl = $"{url}" + GetDeviceControlUrl;
+            if (deviceId!=null)
+            {
+                requestUrl = requestUrl + $"?deviceId={deviceId}";
+            }
+
+            try
+            {
+                var httpResponseMessage = await s_httpClient.GetAsync(requestUrl);
+                httpResponseMessage.EnsureSuccessStatusCode();
+        
+                var result = await httpResponseMessage.Content.ReadAsStringAsync();
+                var pagedResultDto = JsonConvert.DeserializeObject<ApiDto<PagedResultDto<DeviceControlDto>>>(result, s_settings).result;
+                return pagedResultDto.Items;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         public async Task<string> GetSoftwareVersion()
