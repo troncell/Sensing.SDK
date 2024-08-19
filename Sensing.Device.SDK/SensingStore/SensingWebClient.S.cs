@@ -3,6 +3,8 @@ using SensingStoreCloud.Devices.Dto;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Sensing.Device.SDK.Dto;
 
 namespace Sensing.SDK
 {
@@ -43,7 +45,26 @@ namespace Sensing.SDK
             }
             return null;
         }
-
+        public async Task<StoreDto> GetStores(long tenantId)
+        {
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var syncStore = "https://devicecenter.api.troncell.com/api/services/app/Store/GetStores?TenantId=" + tenantId;
+                    var response = await httpClient.GetAsync(syncStore);
+                    response.EnsureSuccessStatusCode();
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var result =  JsonConvert.DeserializeObject<ApiDto<StoreDto>>(jsonString);
+                    return result.result;
+                }
+                
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
     }
 }

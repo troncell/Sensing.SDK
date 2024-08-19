@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Newtonsoft.Json;
+using Sensing.Device.SDK.Dto;
 
 namespace Sensing.SDK
 {
@@ -221,7 +223,40 @@ namespace Sensing.SDK
             }
             return null;
         }
+        
+        
+        public async Task<List<HallAreaDto>> GetHallArea(long tenantId,long storeId)
+        {
+            var absolutePath = $"https://devicecenter.api.troncell.com/api/services/app/Store/GetStoreHallAreaToSync?TenantId={tenantId}&StoreId={storeId}";
+            try
+            {
+                List<HallAreaDto> appDtos = new List<HallAreaDto>();
+                int maxResultCount = 100;
+                int skipCount = 0;
+                int totalCount;
+                using (var httpClient = new HttpClient())
+                {
+                    do
+                    {
+                        var syncTagsUrl = $"{absolutePath}&MaxResultCount={maxResultCount}&SkipCount={skipCount}";
+                        var response = await httpClient.GetAsync(syncTagsUrl);
+                        response.EnsureSuccessStatusCode();
+                        var jsonString = await response.Content.ReadAsStringAsync();
+                        var result =  JsonConvert.DeserializeObject<ApiDto<PagedResultDto<HallAreaDto>>>(jsonString);
+                        totalCount = result.result.TotalCount;
+                        appDtos.AddRange(result.result.Items);
+        
+                        skipCount += maxResultCount;
+                    } while (skipCount < totalCount);  
+                }
+               
 
-
+                return appDtos;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

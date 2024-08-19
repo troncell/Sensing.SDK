@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Sensing.Device.SDK.Dto;
+
 
 namespace Sensing.SDK
 {
@@ -124,7 +127,211 @@ namespace Sensing.SDK
             }
             return null;
         }
+        
+        
+        public async Task<List<ProductSdkModel>> GetProducts(string subKey)
+    {
+        var absolutePath = $"https://product.api.troncell.com/api/services/app/SensingDevice/GetProducts?Subkey={subKey}";
+        try
+        {
+            List<ProductSdkModel> appDtos = new List<ProductSdkModel>();
+            int maxResultCount = 100;
+            int skipCount = 0;
+            int totalCount;
+            using (var httpClient = new HttpClient())
+            {
+                do
+                {
+                    var syncTagsUrl = $"{absolutePath}&MaxResultCount={maxResultCount}&SkipCount={skipCount}";
+                    var response = await httpClient.GetAsync(syncTagsUrl);
+                    response.EnsureSuccessStatusCode();
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var result =  JsonConvert.DeserializeObject<ApiDto<PagedResultDto<ProductSdkModel>>>(jsonString);
+                    totalCount = result.result.TotalCount;
+                    appDtos.AddRange(result.result.Items);
+        
+                    skipCount += maxResultCount;
+                } while (skipCount < totalCount);  
+            }
+               
 
+            return appDtos;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
+    public async Task<List<BrandDto>> GetBrands(string subKey)
+    {
+        var absolutePath = $"https://devicecenter.api.troncell.com/api/services/app/SensingDevice/GetBrands?Subkey={subKey}";
+        try
+        {
+            List<BrandDto> appDtos = new List<BrandDto>();
+            int maxResultCount = 100;
+            int skipCount = 0;
+            int totalCount;
+            using (var httpClient = new HttpClient())
+            {
+                
+                var syncTagsUrl = $"{absolutePath}&MaxResultCount={maxResultCount}&SkipCount={skipCount}";
+                var response = await httpClient.GetAsync(syncTagsUrl);
+                response.EnsureSuccessStatusCode();
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var result =  JsonConvert.DeserializeObject<ApiDto<PagedResultDto<BrandDto>>>(jsonString);
+                totalCount = result.result.TotalCount;
+                appDtos.AddRange(result.result.Items);
+        
+            }
+               
+
+            return appDtos;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
+    
+    public async Task<List<ProductCategorySDKModel>> GetProductCategories(string subKey)
+    {
+        var absolutePath = $"https://product.api.troncell.com/api/services/app/SensingDevice/GetProductCategories?Subkey={subKey}";
+        try
+        {
+            List<ProductCategorySDKModel> appDtos = new List<ProductCategorySDKModel>();
+            int maxResultCount = 100;
+            int skipCount = 0;
+            int totalCount;
+            using (var httpClient = new HttpClient())
+            {
+                do
+                {
+                    var syncTagsUrl = $"{absolutePath}&MaxResultCount={maxResultCount}&SkipCount={skipCount}";
+                    var response = await httpClient.GetAsync(syncTagsUrl);
+                    response.EnsureSuccessStatusCode();
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var result =  JsonConvert.DeserializeObject<ApiDto<PagedResultDto<ProductCategorySDKModel>>>(jsonString);
+                    totalCount = result.result.TotalCount;
+                    appDtos.AddRange(result.result.Items);
+        
+                    skipCount += maxResultCount;
+                } while (skipCount < totalCount);  
+            }
+               
+
+            return appDtos;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
+    public async Task<List<TagSdkModel>> GetProductTags(string subKey)
+    {
+        var absolutePath = $"https://product.api.troncell.com/api/services/app/SensingDevice/GetProductCategories?Subkey={subKey}";
+        try
+        {
+            List<TagSdkModel> appDtos = new List<TagSdkModel>();
+            int maxResultCount = 100;
+            int skipCount = 0;
+            int totalCount;
+            using (var httpClient = new HttpClient())
+            {
+                do
+                {
+                    var syncTagsUrl = $"{absolutePath}&MaxResultCount={maxResultCount}&SkipCount={skipCount}";
+                    var response = await httpClient.GetAsync(syncTagsUrl);
+                    response.EnsureSuccessStatusCode();
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var result =  JsonConvert.DeserializeObject<ApiDto<PagedResultDto<TagSdkModel>>>(jsonString);
+                    totalCount = result.result.TotalCount;
+                    appDtos.AddRange(result.result.Items);
+        
+                    skipCount += maxResultCount;
+                } while (skipCount < totalCount);  
+            }
+               
+
+            return appDtos;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
+    public async Task<List<MatchInfoViewModel>> GetMatchInfos(string subKey)
+    {
+        var absolutePath = $"https://product.api.troncell.com/api/services/app/SensingDevice/GetMatchInfos?Subkey={subKey}";
+        try
+        {
+            List<MatchInfoViewModel> appDtos = new List<MatchInfoViewModel>();
+            int maxResultCount = 100;
+            int skipCount = 0;
+            int totalCount;
+            using (var httpClient = new HttpClient())
+            {
+                do
+                {
+                    var syncTagsUrl = $"{absolutePath}&MaxResultCount={maxResultCount}&SkipCount={skipCount}";
+                    var response = await httpClient.GetAsync(syncTagsUrl);
+                    response.EnsureSuccessStatusCode();
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var result =  JsonConvert.DeserializeObject<ApiDto<PagedResultDto<MatchInfoViewModel>>>(jsonString);
+                    totalCount = result.result.TotalCount;
+                    appDtos.AddRange(result.result.Items);
+        
+                    skipCount += maxResultCount;
+                } while (skipCount < totalCount);  
+            }
+               
+
+            return appDtos;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
+    
+    public async Task<List<CouponViewModel>> GetCoupons(string subKey)
+    {
+        var absolutePath = $"https://product.api.troncell.com/api/services/app/SensingDevice/GetCoupons?Subkey={subKey}";
+        try
+        {
+            List<CouponViewModel> appDtos = new List<CouponViewModel>();
+            int maxResultCount = 100;
+            int skipCount = 0;
+            int totalCount;
+            using (var httpClient = new HttpClient())
+            {
+                do
+                {
+                    var syncTagsUrl = $"{absolutePath}&MaxResultCount={maxResultCount}&SkipCount={skipCount}";
+                    var response = await httpClient.GetAsync(syncTagsUrl);
+                    response.EnsureSuccessStatusCode();
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var result =  JsonConvert.DeserializeObject<ApiDto<PagedResultDto<CouponViewModel>>>(jsonString);
+                    totalCount = result.result.TotalCount;
+                    appDtos.AddRange(result.result.Items);
+        
+                    skipCount += maxResultCount;
+                } while (skipCount < totalCount);  
+            }
+               
+
+            return appDtos;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
 
     }
 }
