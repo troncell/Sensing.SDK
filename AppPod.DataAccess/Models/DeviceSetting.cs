@@ -13,7 +13,7 @@ namespace AppPod.DataAccess.Models
         [PrimaryKey]
         public int Id { get; set; }
 
-        public int DeivceId { get; set; }
+        public long DeivceId { get; set; }
         public string Name { get; set; }
         public string TenantName { get; set; }
         public long TenantId { get; set; }
