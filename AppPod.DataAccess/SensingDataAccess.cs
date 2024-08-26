@@ -356,6 +356,24 @@ namespace AppPod.DataAccess
             return result;
         }
 
+        public List<ShowSkuInfo> QueryShowSkus()
+        {
+            var showskus = Skus.Select(pModel => new ShowSkuInfo
+            {
+                Id = pModel.Id,
+                ImageUrl = GetLocalImagePath(pModel.PicUrl, "Products"),
+                Name = pModel.Title,
+                Price = pModel.Price,
+                PromPrice = pModel.PromPrice,
+                ProductName = pModel.Title,
+                Quantity = pModel.Quantity,
+                RfidCode = pModel.RfidCode,
+                TagIconUrl = FindTagIcon(pModel.TagIds, SvcType.Product),
+                SkuId = pModel.SkuId,
+            }).ToList();
+            return showskus;
+        }
+
         public List<ShowProductInfo> QueryShowProducts(bool onlySpu = false)
         {
             if (Products == null || Products.Count == 0) return null;
@@ -375,7 +393,9 @@ namespace AppPod.DataAccess
                     //QrcodeUrl = pModel.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
                     Type = ProductType.Product,
                     TagIconUrl = FindTagIcon(pModel.TagIds, SvcType.Product),
-                    Product = pModel
+                    Product = pModel,
+                    CategoryIds = string.Join(",", pModel.CategoryIds),
+                    RfidCode = pModel.RfidCode,
                 }).ToList();
                 mShowProducts = infos;
             }
@@ -400,6 +420,8 @@ namespace AppPod.DataAccess
                                 Type = ProductType.Product,
                                 TagIconUrl = FindTagIcon(prod.TagIds, SvcType.Product),
                                 Product = prod,
+                                CategoryIds = string.Join(",", prod.CategoryIds),
+                                RfidCode = prod.RfidCode,
                             });
                         }
                         continue;
@@ -421,7 +443,9 @@ namespace AppPod.DataAccess
                                 //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
                                 Type = ProductType.Product,
                                 TagIconUrl = FindTagIcon(prod.TagIds, SvcType.Product),
-                                Product = prod
+                                Product = prod,
+                                CategoryIds = string.Join(",", prod.CategoryIds),
+                                RfidCode = prod.RfidCode,
                             });
                         }
                         continue;
@@ -447,8 +471,9 @@ namespace AppPod.DataAccess
                                     TagIconUrl = FindTagIcon(firstSku.TagIds, SvcType.Product),
                                     Type = ProductType.Sku,
                                     Product = prod,
-                                    PropsName = firstSku.PropsName
-
+                                    PropsName = firstSku.PropsName,
+                                    CategoryIds = string.Join(",", prod.CategoryIds),
+                                    RfidCode = prod.RfidCode,
                                 });
                             }
                         }
@@ -471,7 +496,9 @@ namespace AppPod.DataAccess
                                 TagIconUrl = FindTagIcon(firstSku.TagIds, SvcType.Product),
                                 Type = ProductType.Sku,
                                 Product = prod,
-                                PropsName = firstSku.PropsName
+                                PropsName = firstSku.PropsName,
+                                CategoryIds = string.Join(",", prod.CategoryIds),
+                                RfidCode = firstSku.RfidCode,
                             });
                         }
                     }
@@ -1024,6 +1051,8 @@ namespace AppPod.DataAccess
 
         public DeviceAppPodVersionModel AppPodVersion { get; set; }
 
+        public List<SkuSdkModel> Skus { get; set; }
+
         #region Read Data from Local Json.
         public List<AdsSdkModel> ReadAds()
         {
@@ -1169,6 +1198,16 @@ namespace AppPod.DataAccess
             return JsonConvert.DeserializeObject<List<DeviceAppPodVersionModel>>(json)?.FirstOrDefault();
         }
 
+        public List<SkuSdkModel> ReadSkus()
+        {
+            List<SkuSdkModel>  skuSdkModels = new List<SkuSdkModel>();
+            var skus = Products?.Where(p => p.Skus != null)
+                       .SelectMany(p => p.Skus)
+                       .ToList();
+
+            return skus;
+        }
+
         public static async Task<string> ReadText(string filePath)
         {
             using (FileStream sourceStream = new FileStream(filePath,
@@ -1215,7 +1254,7 @@ namespace AppPod.DataAccess
             Apps = ReadApps();
             DeviceSoftwares = ReadDeviceSoftwares();
             AppPodVersion = ReadDeviceAppPodVersion();
-            
+            Skus = ReadSkus();
 
             return true;
         }

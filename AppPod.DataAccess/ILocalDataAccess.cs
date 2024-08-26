@@ -101,6 +101,7 @@ namespace AppPod.DataAccess
         List<TagSdkModel> ReadProductTags();
         List<TagSdkModel> ReadDeviceTags();
         List<StaffSdkModel> ReadStaffs();
+        List<SkuSdkModel> ReadSkus();
         /// <summary>
         /// 获取一级分类
         /// </summary>
