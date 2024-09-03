@@ -32,8 +32,8 @@ namespace AppPod.DataAccess.Models
 
         public string Message { get; set; }
 
-        public DateTime? LastUploadedTime { get; set; }
-        public DateTime? CreatedTime { get; set; }
+        public DateTime LastUploadedTime { get; set; }
+        public DateTime CreatedTime { get; set; }
 
         public bool IsSuccessed { get; set; }
 

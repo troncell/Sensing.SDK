@@ -35,6 +35,20 @@ namespace AppPod.DataAccess.Models
         public int TotalClickCouont { get; set; }
         public string CategoryIds { get; set; }
         public string RfidCode { get; set; }
+        public string ExpirePeriod { get; set; }
+        public string ProductCategories { get; set; }
+        /// <summary>
+        /// 副标题
+        /// </summary>
+        public string SubTitle { get; set; }
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string Description { get; set; }
+        /// <summary>
+        /// 区域
+        /// </summary>
+        public string Region { get; set; }
     }
 
     public class ShowSkuInfo

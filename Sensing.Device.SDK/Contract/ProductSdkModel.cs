@@ -10,7 +10,6 @@ namespace Sensing.SDK.Contract
         public string ItemId { get; set; }
         public long Num { get; set; }
         public string Title { get; set; }
-
         public virtual long? OrganizationUnitId { get; set; }
 
         public int OrderNumber { get; set; }
@@ -93,6 +92,22 @@ namespace Sensing.SDK.Contract
         public long? BrandId { get; set; }
         public int Quantity { get; set; }
         public string AuditStatus { get; set; }
+        /// <summary>
+        /// 保质期
+        /// </summary>
+        public string ExpirePeriod { get; set; }
+
+        public IEnumerable<ProductCategories> ProductCategories { get; set; }
+        /// <summary>
+        /// 区域
+        /// </summary>
+        public string Region { get; set; }
+    }
+
+    public class ProductCategories
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class ProductDecideImageViewModel

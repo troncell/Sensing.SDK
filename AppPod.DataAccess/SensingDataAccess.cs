@@ -370,6 +370,7 @@ namespace AppPod.DataAccess
                 RfidCode = pModel.RfidCode,
                 TagIconUrl = FindTagIcon(pModel.TagIds, SvcType.Product),
                 SkuId = pModel.SkuId,
+
             }).ToList();
             return showskus;
         }
@@ -396,6 +397,11 @@ namespace AppPod.DataAccess
                     Product = pModel,
                     CategoryIds = string.Join(",", pModel.CategoryIds),
                     RfidCode = pModel.RfidCode,
+                    SubTitle = pModel.SubTitle,
+                    ExpirePeriod = pModel.ExpirePeriod,
+                    ProductCategories = string.Join(", ", pModel.ProductCategories.Select(c => c.Name)),
+                    Description = pModel.Description,
+                    Region = pModel.Region,
                 }).ToList();
                 mShowProducts = infos;
             }
@@ -422,6 +428,11 @@ namespace AppPod.DataAccess
                                 Product = prod,
                                 CategoryIds = string.Join(",", prod.CategoryIds),
                                 RfidCode = prod.RfidCode,
+                                SubTitle = prod.SubTitle,
+                                ExpirePeriod = prod.ExpirePeriod,
+                                ProductCategories = string.Join(", ", prod.ProductCategories.Select(c => c.Name)),
+                                Description = prod.Description,
+                                Region = prod.Region,
                             });
                         }
                         continue;
@@ -446,6 +457,11 @@ namespace AppPod.DataAccess
                                 Product = prod,
                                 CategoryIds = string.Join(",", prod.CategoryIds),
                                 RfidCode = prod.RfidCode,
+                                SubTitle = prod.SubTitle,
+                                ExpirePeriod = prod.ExpirePeriod,
+                                ProductCategories = string.Join(", ", prod.ProductCategories.Select(c => c.Name)),
+                                Description = prod.Description,
+                                Region = prod.Region,
                             });
                         }
                         continue;
@@ -474,6 +490,11 @@ namespace AppPod.DataAccess
                                     PropsName = firstSku.PropsName,
                                     CategoryIds = string.Join(",", prod.CategoryIds),
                                     RfidCode = prod.RfidCode,
+                                    SubTitle = prod.SubTitle,
+                                    ExpirePeriod = prod.ExpirePeriod,
+                                    ProductCategories = string.Join(", ", prod.ProductCategories.Select(c => c.Name)),
+                                    Description = prod.Description,
+                                    Region = prod.Region,
                                 });
                             }
                         }
@@ -498,7 +519,12 @@ namespace AppPod.DataAccess
                                 Product = prod,
                                 PropsName = firstSku.PropsName,
                                 CategoryIds = string.Join(",", prod.CategoryIds),
-                                RfidCode = firstSku.RfidCode,
+                                RfidCode = prod.RfidCode,
+                                SubTitle = prod.SubTitle,
+                                ExpirePeriod = prod.ExpirePeriod,
+                                ProductCategories = string.Join(", ", prod.ProductCategories.Select(c => c.Name)),
+                                Description = prod.Description,
+                                Region = prod.Region,
                             });
                         }
                     }
