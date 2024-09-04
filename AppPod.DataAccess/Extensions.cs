@@ -64,7 +64,7 @@ namespace AppPod.DataAccess
                 Name = productInfo.Title,
                 Price = productInfo.Price,
                 Quantity = productInfo.Num,
-                Type = ProductType.Product
+                Type = ProductType.product
             };
         }
 
@@ -97,7 +97,7 @@ namespace AppPod.DataAccess
                 Name = p.Title,
                 Price = p.Price,
                 Quantity = p.Num,
-                Type = ProductType.Product
+                Type = ProductType.product
             }).ToList();
         }
 

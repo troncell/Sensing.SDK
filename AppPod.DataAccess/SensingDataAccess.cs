@@ -106,7 +106,7 @@ namespace AppPod.DataAccess
             if (showProductInfo == null) return null;
             string qrcode = string.Empty;
             var storeType = GetStoreType();
-            if (showProductInfo.Type == ProductType.Product)
+            if (showProductInfo.Type == ProductType.product)
             {
                 var pModel = FindByShowProduct(showProductInfo);
                 qrcode = pModel.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreName == storeType)?.Qrcode;
@@ -218,7 +218,7 @@ namespace AppPod.DataAccess
 
         public ShowProductInfo GetShowProductInfoById(ProductType type, long id)
         {
-            if (type == ProductType.Product)
+            if (type == ProductType.product)
             {
                 var pModel = Products?.Find(p => p.Id == id);
                 if (pModel != null)
@@ -230,13 +230,13 @@ namespace AppPod.DataAccess
                         Name = pModel.Title,
                         Price = pModel.Price,
                         //QrcodeUrl = pModel.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
-                        Type = ProductType.Product,
+                        Type = ProductType.product,
                         TagIconUrl = FindTagIcon(pModel.TagIds, SvcType.Product),
                         Product = pModel
                     };
                 }
             }
-            if (type == ProductType.Sku)
+            if (type == ProductType.sku)
             {
                 var pModel = FindBySkuId(id);
                 var firstSku = FindSkuById(id);
@@ -252,7 +252,7 @@ namespace AppPod.DataAccess
                         Price = firstSku.Price,
                         //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
                         TagIconUrl = FindTagIcon(firstSku.TagIds, SvcType.Product),
-                        Type = ProductType.Sku,
+                        Type = ProductType.sku,
                         Product = pModel
                     };
                 }
@@ -263,7 +263,7 @@ namespace AppPod.DataAccess
         public ProductSdkModel FindByShowProduct(ShowProductInfo showProductInfo)
         {
             if (showProductInfo == null) return null;
-            if (showProductInfo.Type == ProductType.Product) return FindByProductId(showProductInfo.Id);
+            if (showProductInfo.Type == ProductType.product) return FindByProductId(showProductInfo.Id);
             return FindBySkuId(showProductInfo.Id);
         }
 
@@ -392,7 +392,7 @@ namespace AppPod.DataAccess
                     ProductName = pModel.Title,
                     Quantity = Math.Max(pModel.Num, pModel.Skus?.Sum(s => s.Quantity) ?? 0),
                     //QrcodeUrl = pModel.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
-                    Type = ProductType.Product,
+                    Type = ProductType.product,
                     TagIconUrl = FindTagIcon(pModel.TagIds, SvcType.Product),
                     Product = pModel,
                     CategoryIds = string.Join(",", pModel.CategoryIds),
@@ -423,7 +423,7 @@ namespace AppPod.DataAccess
                                 PromPrice = prod.PromPrice,
                                 ProductName = prod.Title,
                                 Quantity =Math.Max(prod.Num, prod.Skus?.Sum(s => s.Quantity)??0), 
-                                Type = ProductType.Product,
+                                Type = ProductType.product,
                                 TagIconUrl = FindTagIcon(prod.TagIds, SvcType.Product),
                                 Product = prod,
                                 CategoryIds = string.Join(",", prod.CategoryIds),
@@ -452,7 +452,7 @@ namespace AppPod.DataAccess
                                 PromPrice = prod.PromPrice,
                                 
                                 //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
-                                Type = ProductType.Product,
+                                Type = ProductType.product,
                                 TagIconUrl = FindTagIcon(prod.TagIds, SvcType.Product),
                                 Product = prod,
                                 CategoryIds = string.Join(",", prod.CategoryIds),
@@ -485,7 +485,7 @@ namespace AppPod.DataAccess
                                     PromPrice = firstSku.PromPrice,
                                     //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
                                     TagIconUrl = FindTagIcon(firstSku.TagIds, SvcType.Product),
-                                    Type = ProductType.Sku,
+                                    Type = ProductType.sku,
                                     Product = prod,
                                     PropsName = firstSku.PropsName,
                                     CategoryIds = string.Join(",", prod.CategoryIds),
@@ -515,7 +515,7 @@ namespace AppPod.DataAccess
                                 PromPrice = firstSku.PromPrice,
                                 //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
                                 TagIconUrl = FindTagIcon(firstSku.TagIds, SvcType.Product),
-                                Type = ProductType.Sku,
+                                Type = ProductType.sku,
                                 Product = prod,
                                 PropsName = firstSku.PropsName,
                                 CategoryIds = string.Join(",", prod.CategoryIds),
@@ -826,7 +826,7 @@ namespace AppPod.DataAccess
                     Name = pModel.Title,
                     Price = pModel.Price,
                     //QrcodeUrl = pModel.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
-                    Type = ProductType.Product,
+                    Type = ProductType.product,
                     TagIconUrl = FindTagIcon(pModel.TagIds, SvcType.Product),
                     Product = pModel,
                     Keyword = pModel.Keywords
@@ -851,7 +851,7 @@ namespace AppPod.DataAccess
                                     Name = prod.Title,
                                     Price = prod.Price,
                                     Quantity = prod.Num,
-                                    Type = ProductType.Product,
+                                    Type = ProductType.product,
                                     TagIconUrl = FindTagIcon(prod.TagIds, SvcType.Product),
                                     Product = prod,
                                     Keyword = prod.Keywords
@@ -874,7 +874,7 @@ namespace AppPod.DataAccess
                                     Name = prod.Title,
                                     Price = prod.Price,
                                     //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
-                                    Type = ProductType.Product,
+                                    Type = ProductType.product,
                                     TagIconUrl = FindTagIcon(prod.TagIds, SvcType.Product),
                                     Product = prod,
                                     Keyword = prod.Keywords
@@ -902,7 +902,7 @@ namespace AppPod.DataAccess
                                         Price = firstSku.Price,
                                         //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
                                         TagIconUrl = FindTagIcon(firstSku.TagIds, SvcType.Product),
-                                        Type = ProductType.Sku,
+                                        Type = ProductType.sku,
                                         Product = prod,
                                         Keyword = prod.Keywords
                                     });
@@ -1418,7 +1418,7 @@ namespace AppPod.DataAccess
                                 Name = firstSku.Title,
                                 Price = firstSku.Price,
                                 PromPrice = firstSku.PromPrice,
-                                Type = ProductType.Sku,
+                                Type = ProductType.sku,
                                 PropsName = pImg.PropertyName
                             });
                         }
@@ -1439,7 +1439,7 @@ namespace AppPod.DataAccess
                 similarSkus.Add(productInfo);
                 return similarSkus;
             }
-            if (productInfo.Type == ProductType.Product)
+            if (productInfo.Type == ProductType.product)
             {
                 if (useSameSpu)
                 {
@@ -1452,7 +1452,7 @@ namespace AppPod.DataAccess
                     }
                 }
             }
-            if (productInfo.Type == ProductType.Sku)
+            if (productInfo.Type == ProductType.sku)
             {
                 if (useSameSpu)      
                 {
@@ -1637,7 +1637,7 @@ namespace AppPod.DataAccess
 
         public SkuSdkModel GetSkuSdkModelByShowProduct(ShowProductInfo showProductInfo)
         {
-            if (showProductInfo == null || showProductInfo.Type == ProductType.Product) return null;
+            if (showProductInfo == null || showProductInfo.Type == ProductType.product) return null;
             var spu = Products?.FirstOrDefault(p => p.Skus.Any(s => s.Id == showProductInfo.Id));
             return spu.Skus.FirstOrDefault(s => s.Id == showProductInfo.Id);
         }
@@ -1814,7 +1814,7 @@ namespace AppPod.DataAccess
                 Price = sku.Price,
                 PromPrice = sku.PromPrice,
                 //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
-                Type = ProductType.Sku,
+                Type = ProductType.sku,
                 TagIconUrl = FindTagIcon(product.TagIds, SvcType.Product),
                 Product = product,
                 
@@ -1840,7 +1840,7 @@ namespace AppPod.DataAccess
                 Price = sku.Price,
                 PromPrice = sku.PromPrice,
                 //QrcodeUrl = prod.OnlineStoreInfos.FirstOrDefault(s => s.OnlineStoreType == storeType)?.Qrcode,
-                Type = ProductType.Sku,
+                Type = ProductType.sku,
                 TagIconUrl = FindTagIcon(product.TagIds, SvcType.Product),
                 Product = product
             };

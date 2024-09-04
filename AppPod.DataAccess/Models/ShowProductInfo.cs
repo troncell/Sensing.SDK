@@ -9,8 +9,8 @@ namespace AppPod.DataAccess.Models
 {
     public enum ProductType
     {
-        Product,
-        Sku
+        product,
+        sku
     }
     public class ShowProductInfo
     {
