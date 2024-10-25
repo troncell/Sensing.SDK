@@ -129,20 +129,63 @@ namespace SensingHub.Sdk
         
         public async Task PadConnect(string baseUrl)
         {
+            // if (baseUrl == null) return;
+            // _baseUrl = baseUrl;
+            // if (_connection == null)
+            // {
+            //     _connection = new HubConnectionBuilder()
+            //         .WithUrl($"{_baseUrl}/LocalSensingDevice")
+            //         .WithAutomaticReconnect()
+            //         .Build();
+            //     _connection.KeepAliveInterval = TimeSpan.FromMinutes(10);
+            //     _connection.ServerTimeout = TimeSpan.FromDays(365);
+            //     _connection.Closed += async (error) =>
+            //     {
+            //         await Task.Delay(new Random().Next(0, 5) * 1000);
+            //         await _connection.StartAsync();
+            //     }; 
+            // }
+            // try
+            // {
+            //     await _connection.StartAsync();
+            //     Console.WriteLine("Connection started");
+            // }
+            // catch (Exception ex)
+            // {
+            //     Console.WriteLine($"Failed to start connection: {ex.Message}");
+            // }
+            
             if (baseUrl == null) return;
             _baseUrl = baseUrl;
+
             if (_connection == null)
             {
                 _connection = new HubConnectionBuilder()
                     .WithUrl($"{_baseUrl}/LocalSensingDevice")
+                    .WithAutomaticReconnect()
                     .Build();
+
+                _connection.KeepAliveInterval = TimeSpan.FromMinutes(10);
+                _connection.ServerTimeout = TimeSpan.FromDays(365);
 
                 _connection.Closed += async (error) =>
                 {
-                    await Task.Delay(new Random().Next(0, 5) * 1000);
-                    await _connection.StartAsync();
-                }; 
+                    Console.WriteLine("Connection closed. Attempting to reconnect...");
+                    await ReconnectAsync();
+                };
+
+                _connection.Reconnected += async (connectionId) =>
+                {
+                    Console.WriteLine($"Reconnected to the server with connection ID: {connectionId}");
+                };
+
+                _connection.Reconnecting += async (error) =>
+                {
+                    Console.WriteLine("Attempting to reconnect to the server...");
+                };
+                
             }
+
             try
             {
                 await _connection.StartAsync();
@@ -158,17 +201,35 @@ namespace SensingHub.Sdk
         {
             if (baseUrl == null) return;
             _baseUrl = baseUrl;
+
             if (_connection == null)
             {
                 _connection = new HubConnectionBuilder()
                     .WithUrl($"{_baseUrl}/LocalSensingDevice")
+                    .WithAutomaticReconnect()
                     .Build();
+
+                _connection.KeepAliveInterval = TimeSpan.FromMinutes(10);
+                _connection.ServerTimeout = TimeSpan.FromDays(365);
+
                 _connection.Closed += async (error) =>
                 {
-                    await Task.Delay(new Random().Next(0, 5) * 1000);
-                    await _connection.StartAsync();
+                    Console.WriteLine("Connection closed. Attempting to reconnect...");
+                    await ReconnectAsync();
                 };
+
+                _connection.Reconnected += async (connectionId) =>
+                {
+                    Console.WriteLine($"Reconnected to the server with connection ID: {connectionId}");
+                };
+
+                _connection.Reconnecting += async (error) =>
+                {
+                    Console.WriteLine("Attempting to reconnect to the server...");
+                };
+                
             }
+
             try
             {
                 await _connection.StartAsync();
@@ -177,6 +238,23 @@ namespace SensingHub.Sdk
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to start connection: {ex.Message}");
+            }
+        }
+        
+        private async Task ReconnectAsync()
+        {
+            while (_connection.State == HubConnectionState.Disconnected)
+            {
+                try
+                {
+                    await _connection.StartAsync();
+                    Console.WriteLine("Reconnected successfully");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Reconnect failed: {ex.Message}. Retrying in 2 seconds...");
+                    await Task.Delay(2000);
+                }
             }
         }
         
@@ -375,6 +453,46 @@ namespace SensingHub.Sdk
             }
 
             _connection.On(Received, handler);
+        }
+        
+        public async Task<bool> testntt()
+        {
+            if (_connection.State == HubConnectionState.Connected)
+            {
+                await _connection.InvokeAsync("NotifyDataChangedEvent",
+                    "{\n    \"SubKey\": \"38d4c6a6691b46dbacee5f5dc4188952\",\n    \"DeviceId\": null,\n    \"TenantId\": null,\n    \"From\": \"Shelf\",\n    \"ActionName\": \"WeightChange\",\n    \"Data\": \"{\\\"OperationEndTime\\\":\\\"2024-09-06 14:18:13:847\\\",\\\"OperationStartTime\\\":\\\"2024-09-06 14:18:12:859\\\",\\\"cargoRoad\\\":\\\"310\\\",\\\"costMilliSeconds\\\":958,\\\"layer\\\":\\\"15\\\",\\\"shelf\\\":\\\"72157\\\",\\\"skuid\\\":0,\\\"weightAfter\\\":37.0,\\\"weightBefore\\\":186.0}\",\n    \"SessionId\": null,\n    \"ActionId\": 0,\n    \"EventId\": null,\n    \"ActionTime\": null,\n    \"MemberId\": null\n}");
+                return true;
+            }
+            return false; 
+        }
+        
+        public class SensingDeviceDataChangedInput
+        {
+            public string SubKey { get; set; }
+
+            public long? DeviceId { get; set; }
+
+      
+            public int? TenantId { get; set; }
+
+     
+            public string From { get; set; }
+            
+            public string ActionName { get; set; }
+
+        
+            public string Data { get; set; }
+
+       
+            public string SessionId { get; set; }
+
+            public long? ActionId { get; set; }
+            
+            public long? EventId { get; set; }
+
+            public string ActionTime { get; set; }
+            
+            public string MemberId { get; set; }
         }
     }
 }
